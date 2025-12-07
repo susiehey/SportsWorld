@@ -7,5 +7,7 @@
 			"path": "SportsWorld"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "SportsWorld"
+	}
 }

@@ -1,9 +1,9 @@
 export interface IAthlete {
-    id: number;
+    id?: number;
     name: string;
     age: number;
     gender: string;
-    image: string;
+    image?: string;
     price: number;
-    purchaseStatus: boolean;
+    purchaseStatus?: boolean;
 }

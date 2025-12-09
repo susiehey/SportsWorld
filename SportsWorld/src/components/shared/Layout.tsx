@@ -5,11 +5,11 @@ export default function Layout() {
         <div className="flex flex-col h-screen">
             <header className="p-4 mb-8 bg-blue-600 text-white flex flex-col justify-between items-center">
                 <h1 className="text-3xl font-bold">SportsWorld</h1>
-                <nav className="space-x-4 text-md">
+                <nav className="space-x-4 mt-2 text-md font-bold">
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="/athletes">Athletes</NavLink>
+                    <NavLink to="/register">Register Athletes</NavLink>
                     <NavLink to="/dashboard">Dashboard</NavLink>
-                    <NavLink to="/register">Register</NavLink>
                 </nav>
             </header>
 
@@ -18,7 +18,7 @@ export default function Layout() {
             </main>
 
             <footer className="p-4 mt-8 bg-gray-200 text-center static bottom-0 w-full">
-                <p className="">
+                <p className="font-medium text-sm">
                     © {new Date().getFullYear()} SportsWorld
                 </p>
             </footer>

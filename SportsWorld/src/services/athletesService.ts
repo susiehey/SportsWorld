@@ -7,7 +7,7 @@ export async function getAthletes(): Promise<IAthlete[]> {
     return response.data;
 }
 
-// Opretter en ny utøver
+// Opretter en ny utøver (id genereres av backend)
 export async function createAthletes(input: Omit<IAthlete, "id">): Promise<IAthlete> {
     const payload: Omit<IAthlete, "id"> = {
         name: input.name,
@@ -18,7 +18,6 @@ export async function createAthletes(input: Omit<IAthlete, "id">): Promise<IAthl
     };
     const response = await api.post<IAthlete>('/athletes', payload);
     return response.data;
-
 }
 
 // Oppdaterer en utøver (partial gjør alle felter valgfrie)

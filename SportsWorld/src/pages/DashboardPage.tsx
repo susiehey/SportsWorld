@@ -15,7 +15,7 @@ export default function DashboardPage() {
     const [loan, setLoan] = useState<number>(0);
     const [message, setMessage] = useState<string>("");
 
-
+    // Henter utøvere og finansinformasjon når DashboardPage lastes
     useEffect(() => {
         (async () => {
             try {
@@ -25,7 +25,7 @@ export default function DashboardPage() {
                 const financeData = await getFinance().catch(() => null);
                 setFinance(financeData);
             } catch (error) {
-                setMessage("Could not load athletes.");
+                setMessage("Could not load data.");
             }
         })();
     }, []);
@@ -43,13 +43,13 @@ export default function DashboardPage() {
             setMessage("Loan amount must be greater than zero.");
             return;
             }
-            // Øker penger via tjenesten
             const updatedFinance = await increaseMoney(loan);
+            // Sjekker om oppdatering var vellykket
             if (!updatedFinance) {
                 setMessage("Failed to increase money.");
                 return;
             }
-            // Oppdaterer tilstanden
+            // Oppdaterer finansdata
             setFinance(updatedFinance);
             setLoan(0);
             setMessage("Money increased successfully.");
@@ -79,9 +79,9 @@ export default function DashboardPage() {
     return (
         <>
             <section className="p-4">
-                <p className="text-2xl font-bold">Dashboard</p>
-                <p className="text-lg font-light">Monitor your loans and purchases of your MMA athletes.</p>
-                {message && <p className="mt-2 text-sm text-red-500">{message}</p>}
+                <p className="mb-2 text-2xl font-bold">Dashboard</p>
+                <p className="mb-4 text-lg font-light">Monitor your loans and purchases of your MMA athletes.</p>
+                {message && <p className="text-sm text-red-500">{message}</p>}
             </section>
 
             <section className="p-4">

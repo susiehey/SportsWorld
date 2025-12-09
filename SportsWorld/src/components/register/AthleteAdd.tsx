@@ -1,6 +1,6 @@
 import { useRef, useState, type ChangeEvent } from "react";
-import type { IAthlete } from "../interfaces/IAthlete";
-import ImageUploadService from "../services/ImageUploadService";
+import type { IAthlete } from "../../interfaces/IAthlete";
+import ImageUploadService from "../../services/ImageUploadService";
 
 const AthleteAdd = () => {
 

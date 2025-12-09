@@ -1,7 +1,7 @@
 export interface IAthlete {
     id?: number;
     name: string;
-    age: number;
+    age?: number;
     gender: string;
     image?: string;
     price: number;

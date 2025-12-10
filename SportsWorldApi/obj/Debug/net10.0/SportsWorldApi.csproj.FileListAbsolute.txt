@@ -1,5 +1,6 @@
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/bin/Debug/net10.0/appsettings.Development.json
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/bin/Debug/net10.0/appsettings.json
+/Users/suzanasabic/Desktop/DS3103/SportsWorldApi/bin/Debug/net10.0/SportsWorldApi.staticwebassets.runtime.json
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/bin/Debug/net10.0/SportsWorldApi.staticwebassets.endpoints.json
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/bin/Debug/net10.0/SportsWorldApi
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/bin/Debug/net10.0/SportsWorldApi.deps.json
@@ -147,6 +148,8 @@
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/rjsmrazor.dswa.cache.json
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/scopedcss/bundle/SportsWorldApi.styles.css
+/Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/compressed/fdryeb5s40-{0}-1klw79nawd-1klw79nawd.gz
+/Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/compressed/ngtzoucjxi-{0}-nfz0h0ga8r-nfz0h0ga8r.gz
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/staticwebassets.build.json
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/staticwebassets.build.json.cache
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/staticwebassets.development.json
@@ -158,5 +161,3 @@
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/SportsWorldApi.pdb
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/SportsWorldApi.genruntimeconfig.cache
 /Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/ref/SportsWorldApi.dll
-/Users/suzanasabic/Desktop/DS3103/SportsWorldApi/bin/Debug/net10.0/SportsWorldApi.staticwebassets.runtime.json
-/Users/suzanasabic/Desktop/DS3103/SportsWorldApi/obj/Debug/net10.0/compressed/ngtzoucjxi-{0}-5ipweew5fc-5ipweew5fc.gz

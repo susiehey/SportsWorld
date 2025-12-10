@@ -8,8 +8,8 @@ import type IFinance from "../interfaces/IFinance";
 import { getAthletes } from "../services/athletesService";
 import { getFinance, increaseMoney, purchaseAthlete } from "../services/financeService";
 import FinanceCard from "../components/dashboard/financeCard";
-import PurchaseCard from "../components/dashboard/purchaseCard";
 import LoanCard from "../components/dashboard/loanCard";
+import PurchaseCard from "../components/dashboard/purchaseCard";
 
 export default function DashboardPage() {
 
@@ -18,19 +18,14 @@ export default function DashboardPage() {
     const [loan, setLoan] = useState<number>(0);
     const [message, setMessage] = useState<string>("");
 
-    // Henter utøvere og finansinformasjon når DashboardPage lastes
+    // Henter utøvere og finansinformasjon
     useEffect(() => {
         (async () => {
-            try {
-                const loadedAthletes = await getAthletes();
-                setAthletes(loadedAthletes);
-
-                const financeData = await getFinance().catch(() => null);
-                setFinance(financeData);
-            } catch (error) {
-                setMessage("Could not load data.");
-            }
-        })();
+            const loadedAthletes = await getAthletes();
+            setAthletes(loadedAthletes);
+            const financeData = await getFinance().catch(() => null);
+            setFinance(financeData);
+        });
     }, []);
 
     // Filtrerer utøvere som kan kjøpes
@@ -38,25 +33,16 @@ export default function DashboardPage() {
         () => athletes.filter(a => !a.purchaseStatus), [athletes]
     );
 
-    // Håndterer lån
-    const handleLoan = async () => {
+    const handleLoan = async (amount: number) => {
+        if (amount <= 0) {
+            setMessage("Loan amount must be greater than zero.");
+            return;
+        }
         try {
-            // Validering av lånebeløp
-            if (loan <= 0) {
-                setMessage("Loan amount must be greater than zero.");
-                return;
-            }
-            const updatedFinance = await increaseMoney(loan);
-            // Sjekker om oppdatering var vellykket
-            if (!updatedFinance) {
-                setMessage("Failed to increase money.");
-                return;
-            }
-            // Oppdaterer finansdata
-            setFinance(updatedFinance);
-            setLoan(0);
+            const f = await increaseMoney(amount);
+            setFinance(f);
             setMessage("Money increased successfully.");
-        } catch (error) {
+        } catch {
             setMessage("Failed to increase money.");
         }
     };

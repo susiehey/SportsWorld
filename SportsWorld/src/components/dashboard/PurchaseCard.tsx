@@ -10,7 +10,7 @@ export default function PurchaseCard({ buyableAthletes, purchaseAthlete }: Purch
         <section className="p-4">
             <p className="text-xl font-semibold mb-2">Purchase available athletes</p>
             {buyableAthletes.length === 0 ? (
-                <p className="text-sm text-red-500">No athletes available for purchase.</p>
+                <p className="text-sm">No athletes available for purchase.</p>
             ) : (
                 <ul className="space-y-2">
                 {buyableAthletes.map(a => (

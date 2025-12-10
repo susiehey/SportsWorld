@@ -1,10 +1,45 @@
 import { api } from './client';
 import type { IAthlete } from '../interfaces/IAthlete';
 
+const endpoint = "http://localhost:5074/athlete";
+const endpointNameSearch = "http://localhost:5074/athlete/getbyname/{name}";
+
+interface IResponseList{
+    success: boolean,
+    data: IAthlete[] | null
+};
+
 // Henter alle utøvere
-export async function getAthletes(): Promise<IAthlete[]> {
-    const response = await api.get<IAthlete[]>('/athletes');
-    return response.data;
+const getAllAthletes = async () : Promise<IResponseList> => {
+    try{
+        const response = await axios.get(endpoint);
+        console.log("TRY");
+        return {
+            success: true,
+            data: response.data
+        };
+    }catch{
+        console.log("CATCH");
+        return {
+            success: false,
+            data: null
+        };
+    }
+}
+
+const getAthleteByName = async (name: string) : Promise<IResponseList> => {
+    try{
+        const response = await axios.get(`${endpointNameSearch}/GetByName/${name}`);
+        return {
+            success: true,
+            data: response.data
+        }
+    }catch{
+        return {
+            success: false,
+            data: null
+        }
+    }
 }
 
 // Opretter en ny utøver (id genereres av backend)
@@ -20,6 +55,43 @@ export async function createAthletes(input: Omit<IAthlete, "id">): Promise<IAthl
     return response.data;
 }
 
+interface IAthleteItemResponse{
+    success: boolean,
+    data: IAthlete | null
+}
+
+const getAthleteById = async (id: number) : Promise<IAthleteItemResponse> => {
+    try{
+        const response = await axios.get(`${endpoint}/${id}`); 
+        return {
+            success: true,
+            data: response.data
+        }
+    }catch{
+        return {
+            success: false,
+            data: null
+        }
+    }
+}
+
+interface IDefaultResponse{
+    success: boolean
+}
+
+const putAthlete = async (editedAthlete: IAthlete) : Promise<IDefaultResponse> => {
+    try{
+        const response = await axios.put(endpoint, editedAthlete);
+        return {
+            success: true
+        }
+    }catch{
+        return {
+            success: false
+        }
+    }
+}
+
 // Oppdaterer en utøver (partial gjør alle felter valgfrie)
 export async function updateAthlete(id: number, patch: Partial<IAthlete>): Promise<IAthlete> {
     const response = await api.put<IAthlete>(`/athletes/${id}`, patch);
@@ -30,3 +102,5 @@ export async function updateAthlete(id: number, patch: Partial<IAthlete>): Promi
 export async function deleteAthlete(id: number): Promise<void> {
     await api.delete(`/athletes/${id}`);
 }
+
+export default {getAllAthletes, getAthleteByName, getAthleteById, putAthlete}

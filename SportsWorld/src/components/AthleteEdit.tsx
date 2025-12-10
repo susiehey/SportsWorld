@@ -1,0 +1,114 @@
+import { useRef, useState } from "react";
+import athletesService from "../services/athletesService";
+import type { IAthlete } from "../interfaces/IAthlete";
+
+const AthleteEdit = () => {
+
+    const idInput = useRef<HTMLInputElement | null>(null);
+    const nameInput = useRef<HTMLInputElement | null>(null);
+    const genderInput = useRef<HTMLInputElement | null>(null);
+    const priceInput = useRef<HTMLInputElement | null>(null);
+    const [image, setImage] = useState<string | null>(null);
+
+    const getAthleteById = async () => {
+        if(idInput.current && idInput.current.value.trim() != ""){
+            const idParsed = Number(idInput.current.value);
+
+            if(!isNaN(idParsed)){
+                const response = await athletesService.getAthleteById(idParsed);
+
+                if(response.success === true){
+                    if(nameInput.current != null){
+                        nameInput.current.value = response.data?.name || "Not set";
+                    }
+                    if(genderInput.current != null){
+                        genderInput.current.value = response.data?.gender || "Not set";
+                    }
+                    if(priceInput.current != null){
+                        priceInput.current.value = String(response.data?.price);
+                    }
+                    setImage(response.data?.image || null);
+                }
+            }else{
+                //id parsed er ikke et tall
+            }
+        }
+    }
+
+    const editAthlete = async () => {
+        if(
+            idInput.current &&
+            nameInput.current &&
+            genderInput.current &&
+            priceInput.current &&
+
+            idInput.current.value.trim() != "" &&
+            nameInput.current.value.trim() != "" &&
+            genderInput.current.value.trim() != "" &&
+            priceInput.current.value.trim() != ""
+        ){
+            const id = Number(idInput.current.value);
+            const name = nameInput.current.value;
+            const gender = genderInput.current.value;
+            const price = Number(priceInput.current.value);
+
+            if(!isNaN(id)){
+                const editedAthlete : IAthlete = {
+                    id: id,
+                    name: name,
+                    gender: gender,
+                    price: price
+                }
+                const response = await athletesService.putAthlete(editedAthlete);
+                if(response.success){
+                    //Skriv ut melding til bruker om at det gikk bra å endre
+                }else{
+                    //Skriv ut melding til bruker om at det IKKE gikk bra
+                }
+            }
+        }else{
+            //Skrive ut melding til bruker om at alle felter må være fylles ut
+        }
+    }
+
+    return (
+        <section>
+            <h2 className="text-1xl font-bold m-1">Edit Athletes</h2>
+            <div className="m-2">
+                <label>Id</label>
+                <input type="number" min="0" ref={idInput} className="border ml-2"/>
+            </div>
+            <div className="m-2">
+                <button onClick={getAthleteById} className="border cursor-pointer rounded py-1 px-3">
+                    Get Athlete
+                </button>
+            </div>
+            <div className="m-2">
+                <label>Name</label>
+                <input type="text" ref={nameInput} className="border ml-2"/>
+            </div>
+            <div className="m-2">
+                <label>Gender</label>
+                <input type="text" ref={genderInput} className="border ml-2"/>
+            </div>
+            <div className="m-2">
+                <label>Price</label>
+                <input type="number" min="0" ref={priceInput} className="border ml-2"/>
+            </div>
+            <div className="m-2">
+                <label className="border cursor-pointer rounded py-1 px-3">
+                    Select Image
+                    <input type="file" className="hidden"/>
+                </label>
+            </div>
+            <div className="m-2">
+                <button onClick={editAthlete} className="border cursor-pointer bg-green-600 text-white font-bold py-2 px-4 rounded">
+                    Save changes
+                </button>
+            </div>
+            <p>Status: {}</p>
+        </section>
+    )
+}
+
+export default AthleteEdit;

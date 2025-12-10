@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
     <title>SportsWorld API</title>
 </head>
 <body>
@@ -13,26 +14,27 @@
     <div class="section">
         <h2>Athletes</h2>
 
-        <div class="endpoint"><span class="method">GET</span> /api/athletes - Hent alle utøvere</div>
-        <div class="endpoint"><span class="method">GET</span> /api/athletes/{id} - Hent én utøver</div>
-        <div class="endpoint"><span class="method">GET</span> /api/athletes/byname?name=XYZ - Søk etter navn</div>
-        <div class="endpoint"><span class="method">GET</span> /api/athletes/unpurchased - Hent utøvere som ikke er kjøpt</div>
+        <div class="endpoint"><span class="method">GET</span> /api/athletes - Get all athletes</div>
+        <div class="endpoint"><span class="method">GET</span> /api/athletes/{id} - Get one spesific athlete by id</div>
+        <div class="endpoint"><span class="method">GET</span> /api/athletes/byname?name=XYZ - Search by name</div>
+        <div class="endpoint"><span class="method">GET</span> /api/athletes/unpurchased - Get athletes that are not purchased yet</div>
 
-        <div class="endpoint"><span class="method">POST</span> /api/athletes - Opprett ny utøver</div>
-        <div class="endpoint"><span class="method">PUT</span> /api/athletes/{id} - Oppdater utøver</div>
-        <div class="endpoint"><span class="method">DELETE</span> /api/athletes/{id} - Slett utøver</div>
+        <div class="endpoint"><span class="method">POST</span> /api/athletes - Register new athlete</div>
+        <div class="endpoint"><span class="method">PUT</span> /api/athletes/{id} - Update existing athlete</div>
+        <div class="endpoint"><span class="method">DELETE</span> /api/athletes/{id} - Delete athlete</div>
 
-        <div class="endpoint"><span class="method">POST</span> /api/athletes/{id}/purchase - Kjøp en utøver</div>
+        <div class="endpoint"><span class="method">POST</span> /api/athletes/{id}/purchase - Buy athlete</div>
 
-        <p>Bilder vises via: <code>/images/&lt;filnavn&gt;</code></p>
+        <p>Pictures of athletes are shown here: <code>/images/&lt;filename&gt;</code></p>
+        Example: <code>/images/valentina_shevchenko.jpg</code>
     </div>
 
     <!-- Finance -->
     <div class="section">
         <h2>Finance</h2>
 
-        <div class="endpoint"><span class="method">GET</span> /api/finance - Hent status</div>
-        <div class="endpoint"><span class="method">POST</span> /api/finance/loan - Øk lånet</div>
+        <div class="endpoint"><span class="method">GET</span> /api/finance - Get financial status</div>
+        <div class="endpoint"><span class="method">POST</span> /api/finance/loan - Loan money</div>
     </div>
 
 </body>

@@ -15,7 +15,6 @@ export default function DashboardPage() {
 
     const [athletes, setAthletes] = useState<IAthlete[]>([]);
     const [finance, setFinance] = useState<IFinance | null>(null);
-    const [loan, setLoan] = useState<number>(0);
     const [message, setMessage] = useState<string>("");
 
     // Henter utøvere og finansinformasjon
@@ -71,6 +70,7 @@ export default function DashboardPage() {
             <section className="p-4">
                 <p className="mb-2 text-2xl font-bold">Dashboard</p>
                 <p className="mb-4 text-lg font-light">Monitor your loans and purchases of your MMA athletes.</p>
+                {message && <p className="text-sm mb-2">{message}</p>}
             </section>
 
             <FinanceCard finance={finance} />

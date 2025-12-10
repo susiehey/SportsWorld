@@ -7,9 +7,9 @@ import type { IAthlete } from "../interfaces/IAthlete";
 import type IFinance from "../interfaces/IFinance";
 import { getAthletes } from "../services/athletesService";
 import { getFinance, increaseMoney, purchaseAthlete } from "../services/financeService";
-import FinanceCard from "../components/dashboard/financeCard";
-import LoanCard from "../components/dashboard/loanCard";
-import PurchaseCard from "../components/dashboard/purchaseCard";
+import FinanceCard from "../components/dashboard/FinanceCard";
+import LoanCard from "../components/dashboard/LoanCard";
+import PurchaseCard from "../components/dashboard/PurchaseCard";
 
 export default function DashboardPage() {
 

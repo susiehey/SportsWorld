@@ -2,7 +2,6 @@ import { api } from './client';
 import type { IAthlete } from '../interfaces/IAthlete';
 
 const endpoint = "http://localhost:5074/athlete";
-const endpointNameSearch = "http://localhost:5074/athlete/getbyname/{name}";
 
 interface IResponseList{
     success: boolean,
@@ -29,7 +28,7 @@ const getAllAthletes = async () : Promise<IResponseList> => {
 
 const getAthleteByName = async (name: string) : Promise<IResponseList> => {
     try{
-        const response = await axios.get(`${endpointNameSearch}/GetByName/${name}`);
+        const response = await axios.get(`${endpoint}/GetByName/${name}`);
         return {
             success: true,
             data: response.data

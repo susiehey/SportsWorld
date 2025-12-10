@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportsWorld API</title>
+</head>
+<body>
+    <h1>SportsWorld API Documentation</h1>
+    <p>This is the API documentation for the SportsWorld application.</p>
+
+     <!-- Athletes -->
+    <div class="section">
+        <h2>Athletes</h2>
+
+        <div class="endpoint"><span class="method">GET</span> /api/athletes - Hent alle utøvere</div>
+        <div class="endpoint"><span class="method">GET</span> /api/athletes/{id} - Hent én utøver</div>
+        <div class="endpoint"><span class="method">GET</span> /api/athletes/byname?name=XYZ - Søk etter navn</div>
+        <div class="endpoint"><span class="method">GET</span> /api/athletes/unpurchased - Hent utøvere som ikke er kjøpt</div>
+
+        <div class="endpoint"><span class="method">POST</span> /api/athletes - Opprett ny utøver</div>
+        <div class="endpoint"><span class="method">PUT</span> /api/athletes/{id} - Oppdater utøver</div>
+        <div class="endpoint"><span class="method">DELETE</span> /api/athletes/{id} - Slett utøver</div>
+
+        <div class="endpoint"><span class="method">POST</span> /api/athletes/{id}/purchase - Kjøp en utøver</div>
+
+        <p>Bilder vises via: <code>/images/&lt;filnavn&gt;</code></p>
+    </div>
+
+    <!-- Finance -->
+    <div class="section">
+        <h2>Finance</h2>
+
+        <div class="endpoint"><span class="method">GET</span> /api/finance - Hent status</div>
+        <div class="endpoint"><span class="method">POST</span> /api/finance/loan - Øk lånet</div>
+    </div>
+
+</body>
+</html>

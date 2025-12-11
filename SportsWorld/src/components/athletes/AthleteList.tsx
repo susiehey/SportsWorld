@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import athletesService from "../services/athletesService";
-import type { IAthlete } from "../interfaces/IAthlete";
+import athletesService from "../../services/athletesService";
+import type { IAthlete } from "../../interfaces/IAthlete";
 import AthleteItem from "./AthleteItem";
 
 const AthleteList = () => {

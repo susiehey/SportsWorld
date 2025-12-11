@@ -1,4 +1,4 @@
-import type { IAthlete } from "../interfaces/IAthlete";
+import type { IAthlete } from "../../interfaces/IAthlete";
 
 const AthleteItem = ({athlete}:{athlete: IAthlete}) => {
     return (

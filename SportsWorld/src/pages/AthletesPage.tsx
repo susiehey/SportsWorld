@@ -1,6 +1,6 @@
-import AthleteEdit from "../components/AthleteEdit";
-import AthleteList from "../components/AthleteList";
-import AthleteSearch from "../components/AthleteSearch";
+import AthleteEdit from "../components/athletes/AthleteEdit";
+import AthleteList from "../components/athletes/AthleteList";
+import AthleteSearch from "../components/athletes/AthleteSearch";
 
 {/*
 Page 1. Administering athletes

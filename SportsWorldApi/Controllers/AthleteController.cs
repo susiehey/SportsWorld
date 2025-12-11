@@ -92,5 +92,28 @@ public class AthleteController(SportsWorldContext _SportsWorldContext) : Control
             return StatusCode(500);
         }
     }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        try
+        {
+            var athlete = await _MMAContext.Athletes.FindAsync(id);
+
+            if(athlete == null)
+            {
+                return NotFound(); //404
+            }
+            
+            _MMAContext.Athletes.Remove(athlete);
+            await _MMAContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+        catch
+        {
+            return StatusCode(500);
+        }
+    }
 
 }

@@ -1,4 +1,5 @@
 import { api } from './client';
+import axios from "axios";
 import type { IAthlete } from '../interfaces/IAthlete';
 
 const endpoint = "http://localhost:5074/athlete";

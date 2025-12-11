@@ -20,9 +20,9 @@ public class SportsWorldContext(DbContextOptions<SportsWorldContext> options) : 
             MoneySpent = 0
         });
 
-        modelBuilder.Entity<Athlete>().HasData(
+       /* modelBuilder.Entity<Athlete>().HasData(
         
-        // Kvinner
+        // Kvinner 
         new Athlete { Id = 1, Name = "Valentina Shevchenko", Gender = "Female", Price = 1800000, Image = "valentina_shevchenko.png", PurchaseStatus = false },
         new Athlete { Id = 2, Name = "Zhang Weili", Gender = "Female", Price = 1700000, Image = "zhang_weili.png", PurchaseStatus = true },
         new Athlete { Id = 3, Name = "Rose Namajunas", Gender = "Female", Price = 1200000, Image = "rose_namajunas.png", PurchaseStatus = false },
@@ -45,7 +45,8 @@ public class SportsWorldContext(DbContextOptions<SportsWorldContext> options) : 
         new Athlete { Id = 18, Name = "Max Holloway", Gender = "Male", Price = 1200000, Image = "max_holloway.png", PurchaseStatus = true },
         new Athlete { Id = 19, Name = "Charles Oliveira", Gender = "Male", Price = 1900000, Image = "charles_oliveira.png", PurchaseStatus = false },
         new Athlete { Id = 20, Name = "Justin Gaethje", Gender = "Male", Price = 1000000, Image = "justin_gaethje.png", PurchaseStatus = true }
-        );
+        ); */
+        
     }
 
 }

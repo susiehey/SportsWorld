@@ -1,10 +1,7 @@
 import { useState } from "react";
+import { increaseMoney } from "../../services/financeService";
 
-interface LoanProps {
-  takeLoan: (amount: number) => Promise<void>;
-}
-
-export default function LoanCard({ takeLoan }: LoanProps) {
+export default function LoanCard() {
     const [amount, setAmount] = useState(0);
     const [message, setMessage] = useState("");
 
@@ -14,9 +11,11 @@ export default function LoanCard({ takeLoan }: LoanProps) {
         return;
     }
     try {
-        await takeLoan(amount);
+        await increaseMoney(amount);
         setMessage("Loan taken successfully.");
         setAmount(0);
+        // Varsler til FinanceCard når data er endret
+        window.dispatchEvent(new Event("finance:updated"));
     } catch {
         setMessage("Failed to take loan.");
     }
@@ -28,12 +27,14 @@ export default function LoanCard({ takeLoan }: LoanProps) {
             {message && <p className="text-sm mb-2">{message}</p>}
             <div className="max-w-fit border p-4">
                 <div className="flex gap-2">
-                    <input type="number"
+                    <input
+                        type="number"
                         value={amount}
                         onChange={(e) => setAmount(Number(e.target.value))}
                         placeholder="Amount"
                         className="border w-40 px-3 py-2"/>
-                    <button type="button"
+                    <button
+                        type="button"
                         onClick={submitLoan}
                         className="border px-3 py-2 bg-blue-600 text-white font-bold hover:cursor-pointer">
                             Take loan

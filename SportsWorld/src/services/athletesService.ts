@@ -1,12 +1,8 @@
 import { api } from './client';
-<<<<<<< HEAD
-import axios from 'axios';
-=======
 import axios from "axios";
->>>>>>> e8b76a62db6a38d88909f442e1b1693a81b66700
 import type { IAthlete } from '../interfaces/IAthlete';
 
-const endpoint = "http://localhost:5074/athlete";
+const endpoint = "http://localhost:5048/athlete";
 
 interface IResponseList{
     success: boolean,
@@ -50,7 +46,6 @@ const getAthleteByName = async (name: string) : Promise<IResponseList> => {
 export async function createAthletes(input: Omit<IAthlete, "id">): Promise<IAthlete> {
     const payload: Omit<IAthlete, "id"> = {
         name: input.name,
-        age: input.age,
         gender: input.gender,
         image: input.image ?? "",
         price: input.price
@@ -107,4 +102,4 @@ export async function deleteAthlete(id: number): Promise<void> {
     await api.delete(`/athletes/${id}`);
 }
 
-export default {getAllAthletes, getAthleteByName, getAthleteById, putAthlete}
+export default { getAllAthletes, getAthleteByName, getAthleteById, putAthlete };

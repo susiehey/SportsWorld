@@ -14,23 +14,8 @@ public class AthleteController(SportsWorldContext _SportsWorldContext) : Control
     {
         try
         {
-            List<Athlete> athletes = await _SportsWorldContext.Athletes.ToListAsync();
+            List<Athlete> athletes = await _MMAContext.Athletes.ToListAsync();
             return Ok(athletes);
-        }
-        catch
-        {
-            return StatusCode(500, "Server side error when getting athletes");
-        }
-    }
-
-    [HttpPost]
-    public async Task<ActionResult> Post(Athlete newAthlete)
-    {
-        try
-        {
-            _SportsWorldContext.Athletes.Add(newAthlete);
-            await _SportsWorldContext.SaveChangesAsync();
-            return Created();
         }
         catch
         {
@@ -43,7 +28,7 @@ public class AthleteController(SportsWorldContext _SportsWorldContext) : Control
     {
         try
         {
-            Athlete? athlete = await _SportsWorldContext.Athletes.FindAsync(id);
+            Athlete? athlete = await _MMAContext.Athletes.FindAsync(id);
 
             if(athlete != null)
             {
@@ -60,13 +45,46 @@ public class AthleteController(SportsWorldContext _SportsWorldContext) : Control
         }
     }
 
+    [HttpGet]
+    [Route("[action]/{name}")]
+    public async Task<ActionResult<List<Athlete>>> GetByName(string name)
+    {
+        try
+        {
+            List<Athlete> athletes = await _MMAContext.Athletes.Where(
+                a => a.Name.Contains(name)
+            ).ToListAsync();
+
+            return Ok(athletes);
+        }
+        catch
+        {
+            return StatusCode(500);
+        }
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Post(Athlete newAthlete)
+    {
+        try
+        {
+            _MMAContext.Athletes.Add(newAthlete);
+            await _MMAContext.SaveChangesAsync();
+            return Created();
+        }
+        catch
+        {
+            return StatusCode(500);
+        }
+    }
+
     [HttpPut]
     public async Task<IActionResult> Put(Athlete editedAthlete)
     {
         try
         {
-            _SportsWorldContext.Athletes.Entry(editedAthlete).State = EntityState.Modified;
-            await _SportsWorldContext.SaveChangesAsync();
+            _MMAContext.Athletes.Entry(editedAthlete).State = EntityState.Modified;
+            await _MMAContext.SaveChangesAsync();
             return NoContent();
         }
         catch

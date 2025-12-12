@@ -16,15 +16,28 @@ const LoanCard = () => {
         setAmount(0);
         // Varsler til FinanceCard når data er endret
         window.dispatchEvent(new Event("finance:updated"));
-    } catch {
+    } catch (err: any) {
+        console.error("Loan error:", err?.response ?? err);
+
+        // Hvis API svarer med en feilmelding
+        const backendMessage = err?.response?.data;
+
+        if (backendMessage) {
+            setMessage(backendMessage);
+        } else {
+            setMessage("Failed to take loan.");
+        }
+    };
+}
+    /*} catch {
         setMessage("Failed to take loan.");
     }
-    };
+    };*/
 
     return (
         <section className="p-4">
             <p className="text-xl font-semibold mb-2">Loan from bank</p>
-            {message && <p className="text-sm mb-2">{message}</p>}
+            {message && <p className="text-sm mb-4 text-red-500 italic">{message}</p>}
             <div className="max-w-fit border p-4">
                 <div className="flex gap-2">
                     <input

@@ -13,7 +13,7 @@ export default function Layout() {
                 </nav>
             </header>
 
-            <main className="p-2 mx-auto grow">
+            <main className="p-2 grow">
                 <Outlet />
             </main>
 

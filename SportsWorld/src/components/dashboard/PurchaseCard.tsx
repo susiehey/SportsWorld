@@ -34,7 +34,7 @@ const PurchaseCard = () => {
             setMessage("Athlete purchased successfully.");
             // Varsler til FinanceCard når data er endret og om å hente på nytt
             window.dispatchEvent(new Event("finance:updated"));
-        } catch (error) {
+        } catch {
             setMessage("Failed to purchase athlete.");
         }
     }
@@ -42,7 +42,7 @@ const PurchaseCard = () => {
     return (
         <section className="p-4">
             <p className="text-xl font-semibold mb-2">Purchase available athletes</p>
-            {message && <p className="text-sm mb-2">{message}</p>}
+            {message && <p className="text-sm mb-4 italic">{message}</p>}
             {buyableAthletes.length === 0 ? (
                 <p className="text-sm">No athletes available for purchase.</p>
             ) : (
@@ -52,13 +52,12 @@ const PurchaseCard = () => {
                         <div className="flex items-center gap-3">
                             {a.image &&
                             <img 
-                                src={a.image} 
-                                alt={a.name} 
-                                className="w-10 h-10 object-cover" 
+                                src={a.image}
+                                className="w-10 h-10 object-cover border"
                             />
                             }
                             <div>
-                                <p className="font-medium">
+                                <p className="text-md font-medium">
                                     {a.name}
                                 </p>
                                 <p className="text-xs text-gray-500">

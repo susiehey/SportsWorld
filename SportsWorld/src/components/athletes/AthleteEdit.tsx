@@ -10,7 +10,11 @@ const AthleteEdit = () => {
     const priceInput = useRef<HTMLInputElement | null>(null);
     const [image, setImage] = useState<string | null>(null);
 
+    const [status, setStatus] = useState("");
+
     const getAthleteById = async () => {
+        setStatus("");
+
         if(idInput.current && idInput.current.value.trim() != ""){
             const idParsed = Number(idInput.current.value);
 
@@ -28,14 +32,18 @@ const AthleteEdit = () => {
                         priceInput.current.value = String(response.data?.price);
                     }
                     setImage(response.data?.image || null);
+                }else{
+                    setStatus("Athlete not found");
                 }
             }else{
-                //id parsed er ikke et tall
+                setStatus("Invalid ID");
             }
         }
     }
 
     const editAthlete = async () => {
+        setStatus("");
+
         if(
             idInput.current &&
             nameInput.current &&
@@ -60,14 +68,15 @@ const AthleteEdit = () => {
                     price: price
                 }
                 const response = await athletesService.putAthlete(editedAthlete);
-                if(response.success){
-                    //Skriv ut melding til bruker om at det gikk bra å endre
+
+                if(response.success === true){
+                    setStatus("Changes saved successfully");
                 }else{
-                    //Skriv ut melding til bruker om at det IKKE gikk bra
+                    setStatus("Failed to save changes");
                 }
             }
         }else{
-            //Skrive ut melding til bruker om at alle felter må være fylles ut
+            setStatus("All fields must be filled out before saving");
         }
     }
 
@@ -106,7 +115,7 @@ const AthleteEdit = () => {
                     Save changes
                 </button>
             </div>
-            <p>Status: {}</p>
+            <p>Status: {status}</p>
         </section>
     )
 }

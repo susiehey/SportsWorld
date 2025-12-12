@@ -3,4 +3,5 @@ export default interface IFinance {
     moneyLeft: number;
     moneySpent: number;
     numberOfPurchases: number;
+    loanBalance: number;
 }

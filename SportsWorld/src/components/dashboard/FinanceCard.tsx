@@ -4,16 +4,19 @@ import { getFinance } from "../../services/financeService";
 
 const FinanceCard = () => {
     const [finance, setFinance] = useState<IFinance | null>(null);
+    const [message, setMessage] = useState("");
     const moneyLeft = finance?.moneyLeft ?? 0;
     const numberOfPurchases = finance?.numberOfPurchases ?? 0;
     const moneySpent = finance?.moneySpent ?? 0;
+    const loanBalance = finance?.loanBalance ?? 0;
 
     const loadFinance = async () => {
         try {
             const f = await getFinance().catch(() => null)
             setFinance(f);
         } catch (error) {
-            //
+            console.error(error);
+            setMessage("Failed to load finance.");
         }
     }
 
@@ -30,6 +33,7 @@ const FinanceCard = () => {
             <p className="text-xl font-semibold mb-2">
                 Financial situation
             </p>
+            {message && <p className="text-sm mb-4 text-gray-500 italic">{message}</p>}
             <ul className="space-y-1">
                 <li>
                     <span className="font-light">
@@ -49,6 +53,11 @@ const FinanceCard = () => {
                     </span>
                     {" "} ${moneySpent.toLocaleString()}
                 </li>
+                <li>
+                    <span className="font-light">
+                        Loan balance:
+                    </span>
+                    {" "} ${loanBalance.toLocaleString()}</li>
             </ul>
         </section>
     );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { increaseMoney } from "../../services/financeService";
+import { increaseMoney, payLoan } from "../../services/financeService";
 
 const LoanCard = () => {
     const [amount, setAmount] = useState(0);
@@ -14,31 +14,31 @@ const LoanCard = () => {
         await increaseMoney(amount);
         setMessage("Loan taken successfully.");
         setAmount(0);
-        // Varsler til FinanceCard når data er endret
+        // Oppdaterer FinanceCard
         window.dispatchEvent(new Event("finance:updated"));
-    } catch (err: any) {
-        console.error("Loan error:", err?.response ?? err);
-
-        // Hvis API svarer med en feilmelding
-        const backendMessage = err?.response?.data;
-
-        if (backendMessage) {
-            setMessage(backendMessage);
-        } else {
-            setMessage("Failed to take loan.");
-        }
-    };
-}
-    /*} catch {
+    } catch (error) {
+        console.error(error);
         setMessage("Failed to take loan.");
     }
-    };*/
+    };
+
+    const submitPayLoan = async () => {
+        try {
+            await payLoan();
+            setMessage("Loan paid successfully.");
+            // Oppdaterer FinanceCard
+            window.dispatchEvent(new Event("finance:updated"));
+        } catch (error) {
+            console.error(error);
+            setMessage("Failed to pay loan.");
+        }
+    }
 
     return (
         <section className="p-4">
             <p className="text-xl font-semibold mb-2">Loan from bank</p>
-            {message && <p className="text-sm mb-4 text-red-500 italic">{message}</p>}
-            <div className="max-w-fit border p-4">
+            {message && <p className="text-sm mb-4 text-gray-500 italic">{message}</p>}
+            <div className="max-w-fit border p-4 space-y-2">
                 <div className="flex gap-2">
                     <input
                         type="number"
@@ -51,6 +51,14 @@ const LoanCard = () => {
                         onClick={submitLoan}
                         className="border px-3 py-2 bg-blue-600 text-white font-bold hover:cursor-pointer">
                             Take loan
+                    </button>
+                </div>
+                <div className="flex gap-2">
+                    <button
+                        type="button"
+                        onClick={submitPayLoan}
+                        className="border px-3 py-2 bg-blue-600 text-white font-bold hover:cursor-pointer">
+                            Pay loan in full
                     </button>
                 </div>
             </div>

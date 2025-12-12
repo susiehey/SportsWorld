@@ -38,6 +38,21 @@ public class FinanceController(SportsWorldContext _SportsWorldContext) : Control
             _SportsWorldContext.Finances.Add(finance);
         }
         finance.MoneyLeft += dto.Amount;
+        finance.LoanBalance += dto.Amount;
+        await _SportsWorldContext.SaveChangesAsync();
+        return Ok(finance);
+    }
+
+    [HttpPost("payLoan")]
+    public async Task<ActionResult<Finance>> PayLoan()
+    {
+        var finance = await _SportsWorldContext.Finances.FirstOrDefaultAsync();
+        if (finance is null) return NotFound("Finance not found");
+        if (finance.LoanBalance <= 0) return BadRequest("No loan to pay");
+        if (finance.MoneyLeft < finance.LoanBalance) return BadRequest("Not enough money to pay loan");
+
+        finance.MoneyLeft -= finance.LoanBalance;
+        finance.LoanBalance = 0;
         await _SportsWorldContext.SaveChangesAsync();
         return Ok(finance);
     }
@@ -70,6 +85,27 @@ public class FinanceController(SportsWorldContext _SportsWorldContext) : Control
         await _SportsWorldContext.SaveChangesAsync();
         return Ok(finance);
 
+    }
+
+    [HttpPost("refund")]
+    public async Task<ActionResult<Finance>> Refund([FromBody] PurchaseDto dto)
+    {
+        if (dto.AthleteId <= 0) return BadRequest("Invalid AthleteId");
+
+        var finance = await _SportsWorldContext.Finances.FirstOrDefaultAsync();
+        if (finance is null) return NotFound("Finance not found");
+
+        var athlete = await _SportsWorldContext.Athletes.FirstOrDefaultAsync(a => a.Id == dto.AthleteId);
+        if (athlete is null) return NotFound("Athlete not found");
+        if (!athlete.PurchaseStatus) return BadRequest("Athlete is not purchased");
+
+        finance.MoneyLeft += athlete.Price;
+        finance.MoneySpent -= athlete.Price;
+        finance.NumberOfPurchases -= 1;
+        athlete.PurchaseStatus = false;
+
+        await _SportsWorldContext.SaveChangesAsync();
+        return Ok(finance);
     }
 }
 

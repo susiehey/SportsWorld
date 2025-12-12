@@ -6,8 +6,8 @@ using SportsWorldApi.Models;
 namespace SportsWorldApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class AthleteController(SportsWorldContext _SportsWorldContext) : ControllerBase
+[Route("api/[controller]")]
+public class AthletesController(SportsWorldContext _SportsWorldContext) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<List<Athlete>>> Get()

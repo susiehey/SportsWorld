@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { increaseMoney } from "../../services/financeService";
 
-export default function LoanCard() {
+const LoanCard = () => {
     const [amount, setAmount] = useState(0);
     const [message, setMessage] = useState("");
 
@@ -44,3 +44,5 @@ export default function LoanCard() {
         </section>
     );
 }
+
+export default LoanCard;

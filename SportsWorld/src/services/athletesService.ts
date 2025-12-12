@@ -1,24 +1,21 @@
 import { api } from './client';
-import axios from "axios";
 import type { IAthlete } from '../interfaces/IAthlete';
+import type { IResponseList } from '../interfaces/IResponseList';
+import type { IAthleteItemResponse } from '../interfaces/IAthleteItemResponse';
+import type { IDefaultResponse } from '../interfaces/IDefaultResponse';
 
-const endpoint = "http://localhost:5048/athlete";
+const base = "/athletes";
 
-interface IResponseList{
-    success: boolean,
-    data: IAthlete[] | null
-};
-
-// Henter alle utøvere
-const getAllAthletes = async () : Promise<IResponseList> => {
-    try{
-        const response = await axios.get(endpoint);
+// GET: Henter alle utøvere
+export const getAllAthletes = async () : Promise<IResponseList> => {
+    try {
+        const response = await api.get(base);
         console.log("TRY");
         return {
             success: true,
             data: response.data
         };
-    }catch{
+    } catch {
         console.log("CATCH");
         return {
             success: false,
@@ -27,79 +24,79 @@ const getAllAthletes = async () : Promise<IResponseList> => {
     }
 }
 
-const getAthleteByName = async (name: string) : Promise<IResponseList> => {
-    try{
-        const response = await axios.get(`${endpoint}/GetByName/${name}`);
-        return {
-            success: true,
-            data: response.data
+// GET: Henter utøver basert på navn
+export const getAthleteByName = async (name: string) : Promise<IResponseList> => {
+    try {
+        const response = await api.get(`${base}/GetByName/${name}`);
+        return { success: true, data: response.data
         }
-    }catch{
-        return {
-            success: false,
-            data: null
-        }
+    } catch {
+        return { success: false, data: null }
     }
 }
 
-// Opretter en ny utøver (id genereres av backend)
-export async function createAthletes(input: Omit<IAthlete, "id">): Promise<IAthlete> {
-    const payload: Omit<IAthlete, "id"> = {
-        name: input.name,
-        gender: input.gender,
-        image: input.image ?? "",
-        price: input.price
-    };
-    const response = await api.post<IAthlete>('/athletes', payload);
-    return response.data;
-}
-
-interface IAthleteItemResponse{
-    success: boolean,
-    data: IAthlete | null
-}
-
-const getAthleteById = async (id: number) : Promise<IAthleteItemResponse> => {
-    try{
-        const response = await axios.get(`${endpoint}/${id}`); 
-        return {
-            success: true,
-            data: response.data
+// GET: Henter utøver basert på ID
+export const getAthleteById = async (id: number) : Promise<IAthleteItemResponse> => {
+    try {
+        const response = await api.get(`${base}/${id}`); 
+        return { success: true, data: response.data
         }
-    }catch{
-        return {
-            success: false,
-            data: null
-        }
+    } catch {
+        return { success: false, data: null }
     }
 }
 
-interface IDefaultResponse{
-    success: boolean
-}
-
-const putAthlete = async (editedAthlete: IAthlete) : Promise<IDefaultResponse> => {
-    try{
-        const response = await axios.put(endpoint, editedAthlete);
-        return {
-            success: true
-        }
-    }catch{
-        return {
-            success: false
-        }
+// PUT: Oppdaterer en utøver (trenger vi denne?)
+export const putAthlete = async (editedAthlete: IAthlete) : Promise<IDefaultResponse> => {
+    try {
+        const response = await api.put(base, editedAthlete);
+        return { success: true }
+    } catch {
+        return { success: false }
     }
 }
 
-// Oppdaterer en utøver (partial gjør alle felter valgfrie)
-export async function updateAthlete(id: number, patch: Partial<IAthlete>): Promise<IAthlete> {
-    const response = await api.put<IAthlete>(`/athletes/${id}`, patch);
-    return response.data;
+// POST: Opretter en ny utøver
+export const createAthletes = async (input: Omit<IAthlete, "id">): Promise<IResponseList<IAthlete>> => {
+    try {
+        const payload: Omit<IAthlete, "id"> = {
+            name: input.name,
+            gender: input.gender,
+            image: input.image ?? "",
+            price: input.price
+        };
+        const { data } = await api.post<IAthlete>(base, payload);
+        return { success: true, data };
+    } catch {
+        return { success: false, data: null };
+    }
 }
 
-// Sletter en utøver
-export async function deleteAthlete(id: number): Promise<void> {
-    await api.delete(`/athletes/${id}`);
+// PUT: Oppdaterer en utøver
+export const updateAthlete = async (id: number, patch: Partial<IAthlete>): Promise<IResponseList<IAthlete>> => {
+    try {
+        const { data } = await api.put<IAthlete>(`/athletes/${id}`, patch);
+        return { success: true, data };
+    } catch {
+        return { success: false, data: null };
+    }
 }
 
-export default { getAllAthletes, getAthleteByName, getAthleteById, putAthlete };
+// DELETE: Sletter en utøver
+export const deleteAthlete = async (id: number): Promise<void> => {
+    try {
+        await api.delete(`/athletes/${id}`);
+    } catch (error) {
+        //
+    }
+}
+
+export default { 
+    getAllAthletes,
+    getAthleteByName, 
+    getAthleteById, 
+    putAthlete,
+    createAthletes,
+    updateAthlete,
+    deleteAthlete
+};

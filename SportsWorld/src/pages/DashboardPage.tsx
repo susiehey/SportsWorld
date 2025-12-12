@@ -22,9 +22,9 @@ export default function DashboardPage() {
             <FinanceCard></FinanceCard>
             
             <LoanCard></LoanCard>
-            {/* 
+            
             <PurchaseCard></PurchaseCard>
-            */}
+            
         </>
     );
 }

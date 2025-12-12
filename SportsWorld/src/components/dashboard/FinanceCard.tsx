@@ -2,7 +2,7 @@ import type IFinance from "../../interfaces/IFinance";
 import { useEffect, useState } from "react";
 import { getFinance } from "../../services/financeService";
 
-export default function FinanceCard() {
+const FinanceCard = () => {
     const [finance, setFinance] = useState<IFinance | null>(null);
     const moneyLeft = finance?.moneyLeft ?? 0;
     const numberOfPurchases = finance?.numberOfPurchases ?? 0;
@@ -53,3 +53,5 @@ export default function FinanceCard() {
         </section>
     );
 }
+
+export default FinanceCard;

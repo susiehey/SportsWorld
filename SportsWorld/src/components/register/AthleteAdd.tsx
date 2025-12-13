@@ -9,16 +9,18 @@ const AthleteAdd = () => {
     const genderInput = useRef<HTMLInputElement | null>(null);
     const priceInput = useRef<HTMLInputElement | null>(null);
 
+    const [status, setStatus] = useState("");
+
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const {files} = e.target;
 
         if(files != null){
             setImage(files[0]);
-            console.log(files[0]);
+            setStatus(`Image selected: ${files[0].name}`);
         }
     }
 
-    const registerAthlete = () => {
+    const registerAthlete = async () => {
         if(
             nameInput.current &&
             nameInput.current.value.trim() != "" &&
@@ -35,9 +37,15 @@ const AthleteAdd = () => {
                 image: image.name
             }
 
-            ImageUploadService.postAthlete(newAthlete, image);
+            try{
+                await ImageUploadService.postAthlete(newAthlete, image);
+                setStatus("Athlete registered successfully");
+            }catch{
+                setStatus("Registration failed. Please try again")
+            }
+
         }else{
-            console.log("Some fields are missing input")
+            setStatus("Some fields are missing input");
         }
     }
 
@@ -71,7 +79,7 @@ const AthleteAdd = () => {
                 </button>
             </div>
             <div>
-                <p>Status: {}</p>
+                <p>Status: {status}</p>
             </div>
         </section>
     )

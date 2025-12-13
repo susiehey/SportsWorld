@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { IAthlete } from "../../interfaces/IAthlete";
 import athleteService from "../../services/athletesService";
 import { purchaseAthlete, undoPurchase } from "../../services/financeService";
+import { imageUrl } from "../../services/imageUrl";
 
 const PurchaseCard = () => {
     const [athletes, setAthletes] = useState<IAthlete[]>([]);
@@ -78,8 +79,8 @@ const PurchaseCard = () => {
                                 <div className="flex items-center gap-4">
                                     {a.image && (
                                         <img 
-                                            src={a.image}
-                                            className="w-12 h-14 object-cover border-2 border-gray-300 rounded-md shadow-md"
+                                            src={imageUrl(a.image)}
+                                            className="w-12 h-fit object-cover border-2 border-gray-300 rounded-md shadow-md"
                                         />
                                     )}
                                     <div>
@@ -116,8 +117,8 @@ const PurchaseCard = () => {
                                     <div className="flex items-center gap-4">
                                         {a.image &&
                                         <img 
-                                            src={a.image}
-                                            className="w-12 h-14 object-cover border-2 border-gray-300 rounded-md shadow-md"
+                                            src={imageUrl(a.image)}
+                                            className="w-12 h-fit object-cover border-2 border-gray-300 rounded-md shadow-md"
                                         />
                                         }
                                         <div>

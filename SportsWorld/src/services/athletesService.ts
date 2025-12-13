@@ -1,15 +1,15 @@
-import { api } from './client';
+import api from './api';
 import type { IAthlete } from '../interfaces/IAthlete';
 import type { IResponseList } from '../interfaces/IResponseList';
 import type { IAthleteItemResponse } from '../interfaces/IAthleteItemResponse';
 import type { IDefaultResponse } from '../interfaces/IDefaultResponse';
 
-const base = "/athletes";
+const endpoint = "/api/athletes";
 
 // GET: Henter alle utøvere
 export const getAllAthletes = async () : Promise<IResponseList> => {
     try {
-        const response = await api.get(base);
+        const response = await api.get(endpoint);
         console.log("TRY");
         return {
             success: true,
@@ -27,7 +27,7 @@ export const getAllAthletes = async () : Promise<IResponseList> => {
 // GET: Henter utøver basert på navn
 export const getAthleteByName = async (name: string) : Promise<IResponseList> => {
     try {
-        const response = await api.get(`${base}/GetByName/${name}`);
+        const response = await api.get(`${endpoint}/GetByName/${name}`);
         return { success: true, data: response.data
         }
     } catch {
@@ -38,7 +38,7 @@ export const getAthleteByName = async (name: string) : Promise<IResponseList> =>
 // GET: Henter utøver basert på ID
 export const getAthleteById = async (id: number) : Promise<IAthleteItemResponse> => {
     try {
-        const response = await api.get(`${base}/${id}`); 
+        const response = await api.get(`${endpoint}/${id}`); 
         return { success: true, data: response.data
         }
     } catch {
@@ -49,7 +49,7 @@ export const getAthleteById = async (id: number) : Promise<IAthleteItemResponse>
 // PUT: Oppdaterer en utøver (trenger vi denne?)
 export const putAthlete = async (editedAthlete: IAthlete) : Promise<IDefaultResponse> => {
     try {
-        const response = await api.put(base, editedAthlete);
+        const response = await api.put(endpoint, editedAthlete);
         return { success: true }
     } catch {
         return { success: false }
@@ -65,7 +65,7 @@ export const createAthletes = async (input: Omit<IAthlete, "id">): Promise<IResp
             image: input.image ?? "",
             price: input.price
         };
-        const { data } = await api.post<IAthlete>(base, payload);
+        const { data } = await api.post<IAthlete>(endpoint, payload);
         return { success: true, data };
     } catch {
         return { success: false, data: null };

@@ -10,13 +10,14 @@ const AthleteAdd = () => {
     const priceInput = useRef<HTMLInputElement | null>(null);
 
     const [status, setStatus] = useState("");
+    const [imageName, setImageName] = useState<string>("");
 
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const {files} = e.target;
 
         if(files != null){
             setImage(files[0]);
-            setStatus(`Image selected: ${files[0].name}`);
+            setImageName(files[0].name);
         }
     }
 
@@ -69,6 +70,10 @@ const AthleteAdd = () => {
             <div className="m-2">
                 <label>Price</label>
                 <input type="number" min="0" ref={priceInput} className="border ml-2" />
+            </div>
+
+            <div className="m-2">
+                <p>Image selected: {imageName}</p>
             </div>
 
             <div className="m-2">

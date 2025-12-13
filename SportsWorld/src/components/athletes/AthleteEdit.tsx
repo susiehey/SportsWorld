@@ -8,7 +8,7 @@ const AthleteEdit = () => {
     const nameInput = useRef<HTMLInputElement | null>(null);
     const genderInput = useRef<HTMLSelectElement | null>(null);
     const priceInput = useRef<HTMLInputElement | null>(null);
-    const [image, setImage] = useState<string | null>(null);
+    const [image, setImage] = useState<string>();
 
     const [status, setStatus] = useState("");
 
@@ -31,7 +31,7 @@ const AthleteEdit = () => {
                     if(priceInput.current != null){
                         priceInput.current.value = String(response.data?.price);
                     }
-                    setImage(response.data?.image || null);
+                    setImage(response.data?.image);
                 }else{
                     setStatus("Athlete not found");
                 }
@@ -65,7 +65,8 @@ const AthleteEdit = () => {
                     id: id,
                     name: name,
                     gender: gender,
-                    price: price
+                    price: price,
+                    image
                 }
                 const response = await athletesService.putAthlete(editedAthlete);
 
@@ -110,10 +111,7 @@ const AthleteEdit = () => {
                 <input type="number" min="0" ref={priceInput} className="border ml-2"/>
             </div>
             <div className="m-2">
-                <label className="border cursor-pointer rounded py-1 px-3">
-                    Select Image
-                    <input type="file" className="hidden"/>
-                </label>
+                <p>Image: {image}</p>
             </div>
             <div className="m-2">
                 <button onClick={editAthlete} className="border cursor-pointer bg-green-600 text-white font-bold py-2 px-4 rounded">

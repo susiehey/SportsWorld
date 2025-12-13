@@ -29,38 +29,33 @@ const FinanceCard = () => {
     }, []);
 
     return (
-         <section className="p-4">
-            <p className="text-xl font-semibold mb-2">
-                Financial situation
-            </p>
-            {message && <p className="text-sm mb-4 text-gray-500 italic">{message}</p>}
-            <ul className="space-y-1">
-                <li>
-                    <span className="font-light">
-                        Money left:
-                    </span>
-                    {" "} ${moneyLeft.toLocaleString()}
-                </li>
-                <li>
-                    <span className="font-light">
-                        Purchased athletes:
-                    </span>
-                    {" "} {numberOfPurchases}
-                </li>
-                <li>
-                    <span className="font-light">
-                        Total spending so far:
-                    </span>
-                    {" "} ${moneySpent.toLocaleString()}
-                </li>
-                <li>
-                    <span className="font-light">
-                        Loan balance:
-                    </span>
-                    {" "} ${loanBalance.toLocaleString()}</li>
-            </ul>
+         <section className="p-4 bg-gray-100 border-2 border-gray-200 rounded-md shadow-lg">
+            <p className="text-xl text-center font-semibold mb-4">Financial situation</p>
+            {message && (
+                <p className="text-sm mb-4 text-gray-500 italic">{message}</p>
+            )}
+            <div className="p-4 bg-blue-200 border-2 border-blue-300 rounded-md shadow-md">
+                <ul className="space-y-2 text-sm">
+                    <li className="flex items-baseline justify-between gap-4">
+                        <span className="font-medium">Money left:</span>
+                        <span className="font-bold bg-white px-2 py-1 rounded-md shadow-md">${moneyLeft.toLocaleString()}</span>
+                    </li>
+                    <li className="flex items-baseline justify-between gap-4">
+                        <span className="font-medium">Purchased athletes:</span>
+                        <span className="font-bold bg-white px-2 py-1 rounded-md shadow-md">{numberOfPurchases}</span>
+                    </li>
+                    <li className="flex items-baseline justify-between gap-4">
+                        <span className="font-medium">Total spending so far:</span>
+                        <span className="font-bold bg-white px-2 py-1 rounded-md shadow-md">${moneySpent.toLocaleString()}</span>
+                    </li>
+                    <li className="flex items-baseline justify-between gap-4">
+                        <span className="font-medium">Loan balance:</span>
+                        <span className="font-bold bg-white px-2 py-1 rounded-md shadow-md">${loanBalance.toLocaleString()}</span>
+                    </li>
+                </ul>
+            </div>
         </section>
-    );
+);
 }
 
 export default FinanceCard;

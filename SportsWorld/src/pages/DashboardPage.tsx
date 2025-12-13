@@ -9,7 +9,7 @@ import PurchaseCard from "../components/dashboard/PurchaseCard";
 export default function DashboardPage() {
     return (
         <>
-            <section className="p-4">
+            <section className="p-4 text-center">
                 <p className="mb-2 text-2xl font-bold">
                     Dashboard
                 </p>
@@ -18,13 +18,17 @@ export default function DashboardPage() {
                 </p>
             </section>
             
-            
-            <FinanceCard></FinanceCard>
-            
-            <LoanCard></LoanCard>
-            
-            <PurchaseCard></PurchaseCard>
-            
+            <section className="px-4 pb-8 flex justify-center">
+               <div className="w-full max-w-5xl">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FinanceCard></FinanceCard>
+                        <LoanCard></LoanCard> 
+                    </div>
+                    <div className="mt-4">
+                        <PurchaseCard></PurchaseCard>
+                    </div>
+                </div>
+            </section>
         </>
     );
 }

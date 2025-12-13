@@ -59,79 +59,89 @@ const PurchaseCard = () => {
     }
 
     return (
-        <section className="p-4">
-            <div>
-            <p className="text-xl font-semibold mb-2">Purchase available athletes</p>
-            {message && <p className="text-sm mb-4 text-gray-500 italic">{message}</p>}
-            {availableAthletes.length === 0 ? (
-                <p className="text-sm">No athletes available for purchase.</p>
-            ) : (
-                <ul className="space-y-2">
-                {availableAthletes.map(a => (
-                    <li key={a.id} className="flex max-w-fit items-center justify-between gap-10 border p-4">
-                        <div className="flex items-center gap-4">
-                            {a.image &&
-                            <img 
-                                src={a.image}
-                                className="w-10 h-10 object-cover border"
-                            />
-                            }
-                            <div>
-                                <p className="text-md font-medium">
-                                    {a.name}
-                                </p>
-                                <p className="text-xs text-gray-500">
-                                    ${a.price.toLocaleString()}
-                                </p>
-                            </div>
-                        </div>
-                        <button
-                            className="border px-3 py-2 bg-blue-600 text-white font-bold hover:cursor-pointer"
-                            onClick={() => doPurchase(a.id!)}
-                        >
-                            Buy
-                        </button>
-                    </li>
-                ))}
-                </ul>
+        <section className="p-4 bg-gray-100 border-2 border-gray-200 rounded-md shadow-md">
+            <p className="text-xl text-center font-semibold mb-4 ">Purchase athletes</p>
+            {message && (
+                <p className="text-sm mb-4 text-gray-500 italic">{message}</p>
             )}
-            </div>
-            <div>
-                <p className="text-xl font-semibold mb-2">Purchased athletes</p>
-                {message && <p className="text-sm">{message}</p>}
-                {purchasedAthletes.length === 0 ? (
-                    <p className="text-sm">No athletes purchased.</p>
-                ) : (
-                    <ul className="space-y-2">
-                        {purchasedAthletes.map(a => (
-                            <li key={a.id} className="flex items-center justify-between gap-3">
-                                <div className="flex items-center gap-3">
-                                    {a.image &&
-                                    <img 
-                                        src={a.image}
-                                        className="w-10 h-10 object-cover border"
-                                    />
-                                    }
+            {/* To kolonner: availableAthletes og purchasedAthletes */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Available athletes */}
+                <div className="p-4 bg-blue-200 border-2 border-blue-300 rounded-md shadow-md">
+                <p className="text-lg font-medium mb-4">Available athletes:</p>
+                    {availableAthletes.length === 0 ? (
+                    <p className="text-sm italic text-gray-500">No athletes available for purchase.</p>
+                    ) : (
+                        <ul className="space-y-2">
+                        {availableAthletes.map(a => (
+                            <li key={a.id} className="flex items-center justify-between gap-4 p-4 bg-white rounded-md shadow-md">
+                                <div className="flex items-center gap-4">
+                                    {a.image && (
+                                        <img 
+                                            src={a.image}
+                                            className="w-12 h-14 object-cover border-2 border-gray-300 rounded-md shadow-md"
+                                        />
+                                    )}
                                     <div>
-                                        <p className="text-md font-medium">
+                                        <p className="text-sm font-medium">
                                             {a.name}
                                         </p>
                                         <p className="text-xs text-gray-500">
                                             ${a.price.toLocaleString()}
                                         </p>
                                     </div>
+                                </div>
+                                <div>
                                     <button
-                                        className="border px-3 py-2 bg-rose-400 text-white font-bold hover:cursor-pointer"
-                                        onClick={() => doUndoPurchase(a.id!)}
+                                        className="px-2.5 py-2 bg-emerald-500 text-xs text-white font-bold hover:cursor-pointer rounded-md hover:bg-green-700"
+                                        onClick={() => doPurchase(a.id!)}
                                     >
-                                        Undo purchase
-                                    </button>
+                                        Buy
+                                    </button>    
                                 </div>
                             </li>
-                                
                         ))}
-                    </ul>
-                )}
+                        </ul>    
+                    )}
+                </div>
+                {/* Purchased athletes */}
+                <div className="p-4 bg-blue-200 border-2 border-blue-300 rounded-md shadow-md">
+                    <p className="text-lg font-medium mb-4">Purchased athletes:</p>
+                    {purchasedAthletes.length === 0 ? (
+                        <p className="text-sm text-gray-500 italic">No athletes purchased.</p>
+                    ) : (
+                        <ul className="space-y-2">
+                            {purchasedAthletes.map(a => (
+                                <li key={a.id} className="flex items-center justify-between gap-4 p-4 bg-white rounded-md shadow-md">
+                                    <div className="flex items-center gap-4">
+                                        {a.image &&
+                                        <img 
+                                            src={a.image}
+                                            className="w-12 h-14 object-cover border-2 border-gray-300 rounded-md shadow-md"
+                                        />
+                                        }
+                                        <div>
+                                            <p className="text-sm font-medium">
+                                                {a.name}
+                                            </p>
+                                            <p className="text-xs text-gray-500">
+                                                ${a.price.toLocaleString()}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button
+                                        className="px-2.5 py-2 bg-rose-400 text-white text-xs font-bold hover:cursor-pointer hover:bg-rose-600 rounded-md"
+                                        onClick={() => doUndoPurchase(a.id!)}
+                                        >
+                                            Undo
+                                        </button>
+                                    </div>
+                                </li> 
+                            ))}
+                        </ul>
+                    )}
+                </div>    
             </div>
         </section>
     );

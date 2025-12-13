@@ -6,7 +6,7 @@ const AthleteAdd = () => {
 
     const [image, setImage] = useState<File | null>(null);
     const nameInput = useRef<HTMLInputElement | null>(null);
-    const genderInput = useRef<HTMLInputElement | null>(null);
+    const genderInput = useRef<HTMLSelectElement | null>(null);
     const priceInput = useRef<HTMLInputElement | null>(null);
 
     const [status, setStatus] = useState("");
@@ -58,7 +58,12 @@ const AthleteAdd = () => {
 
             <div className="m-2">
                 <label>Gender</label>
-                <input type="text" ref={genderInput} className="border ml-2" />
+                <select ref={genderInput} className="border ml-2">
+                    <option value="">Select gender</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Other">Other</option>
+                </select>
             </div>
 
             <div className="m-2">

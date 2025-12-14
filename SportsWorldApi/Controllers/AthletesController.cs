@@ -52,7 +52,7 @@ public class AthletesController(SportsWorldContext _SportsWorldContext) : Contro
         try
         {
             List<Athlete> athletes = await _SportsWorldContext.Athletes.Where(
-                a => a.Name.Contains(name)
+                a => a.Name.ToLower().Contains(name.ToLower())
             ).ToListAsync();
 
             return Ok(athletes);

@@ -1,19 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
 import type { IAthlete } from "../../interfaces/IAthlete";
 import athleteService from "../../services/athletesService";
-import { purchaseAthlete, undoPurchase } from "../../services/financeService";
 import { imageUrl } from "../../services/imageUrl";
+import financeService from "../../services/financeService";
 
 const PurchaseCard = () => {
     const [athletes, setAthletes] = useState<IAthlete[]>([]);
-    const [message, setMessage] = useState("");
+    const [status, setStatus] = useState("");
 
     const loadAthletes = async () => {
         const a = await athleteService.getAllAthletes();
         if (a.success && a.data) {
             setAthletes(a.data);
         } else {
-            setMessage("Failed to load athletes.");
+            setStatus("Failed to load athletes.");
         }
     };
 
@@ -33,46 +33,51 @@ const PurchaseCard = () => {
 
     const doPurchase = async (id: number) => {
         try {
-            await purchaseAthlete(id);
+            await financeService.purchaseAthlete(id);
             setAthletes((prev) =>
                 prev.map((a) => (a.id === id ? { ...a, purchaseStatus: true } : a))
             );
-            setMessage("Athlete purchased successfully.");
+            setStatus("Athlete purchased successfully.");
             // Oppdaterer FinanceCard
             window.dispatchEvent(new Event("finance:updated"));
         } catch (error) {
+            // Viser feilmelding i konsoll
             console.error(error);
-            setMessage("Failed to purchase athlete.");
+            // Viser feilmelding til brukeren
+            setStatus("Failed to purchase athlete. Please try again.");
         }
     }
 
     const doUndoPurchase = async (id: number) => {
         try {
-            await undoPurchase(id);
+            await financeService.undoPurchase(id);
             setAthletes(prev => prev.map(a => a.id === id ? { ...a, purchaseStatus: false } : a));
-            setMessage("Refunded purchase successfully.");
+            setStatus("Refunded purchase successfully.");
             // Oppdaterer FinanceCard
             window.dispatchEvent(new Event("finance:updated"));
         } catch (error) {
+            // Viser feilmelding i konsoll
             console.error(error);
-            setMessage("Failed to undo purchase.");
+            // Viser feilmelding til brukeren
+            setStatus("Failed to undo purchase. Please try again.");
         }
     }
 
     return (
         <section className="p-4 bg-gray-100 border-2 border-gray-200 rounded-md shadow-md">
-            <p className="text-xl text-center font-semibold mb-4 ">Purchase athletes</p>
-            {message && (
-                <p className="text-sm mb-4 text-gray-500 italic">{message}</p>
+            <p className="text-xl text-center font-semibold mb-4">Purchase MMA athletes</p>
+            {status && (
+                <p className="text-sm mb-4 -mt-2 text-gray-500 text-center italic">{status}</p>
             )}
             {/* To kolonner: availableAthletes og purchasedAthletes */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Available athletes */}
-                <div className="p-4 bg-blue-200 border-2 border-blue-300 rounded-md shadow-md">
-                <p className="text-lg font-medium mb-4">Available athletes:</p>
+                {/* Viser utøvere som er tilgjengelige */}
+                <div className="p-4 bg-blue-200 border-2 border-blue-300 rounded-md shadow-md h-100 overflow-scroll">
+                    <p className="font-semibold mb-4 text-center">Available athletes</p>
                     {availableAthletes.length === 0 ? (
                     <p className="text-sm italic text-gray-500">No athletes available for purchase.</p>
                     ) : (
+                        
                         <ul className="space-y-2">
                         {availableAthletes.map(a => (
                             <li key={a.id} className="flex items-center justify-between gap-4 p-4 bg-white rounded-md shadow-md">
@@ -80,7 +85,7 @@ const PurchaseCard = () => {
                                     {a.image && (
                                         <img 
                                             src={imageUrl(a.image)}
-                                            className="w-12 h-fit object-cover border-2 border-gray-300 rounded-md shadow-md"
+                                            className="w-12 h-fit object-cover"
                                         />
                                     )}
                                     <div>
@@ -94,7 +99,8 @@ const PurchaseCard = () => {
                                 </div>
                                 <div>
                                     <button
-                                        className="px-2.5 py-2 bg-emerald-500 text-xs text-white font-bold hover:cursor-pointer rounded-md hover:bg-green-700"
+                                        className="px-2.5 py-2 bg-emerald-600 text-xs text-white font-bold hover:cursor-pointer rounded-md hover:bg-green-800
+                                        hover:scale-110 hover:shadow-md transition-transform"
                                         onClick={() => doPurchase(a.id!)}
                                     >
                                         Buy
@@ -105,9 +111,9 @@ const PurchaseCard = () => {
                         </ul>    
                     )}
                 </div>
-                {/* Purchased athletes */}
-                <div className="p-4 bg-blue-200 border-2 border-blue-300 rounded-md shadow-md">
-                    <p className="text-lg font-medium mb-4">Purchased athletes:</p>
+                {/* Viser utøvere som er kjøpt */}
+                <div className="p-4 bg-blue-200 border-2 border-blue-300 rounded-md shadow-md h-100 overflow-scroll">
+                    <p className="font-semibold mb-4 text-center">Purchased athletes</p>
                     {purchasedAthletes.length === 0 ? (
                         <p className="text-sm text-gray-500 italic">No athletes purchased.</p>
                     ) : (
@@ -118,7 +124,7 @@ const PurchaseCard = () => {
                                         {a.image &&
                                         <img 
                                             src={imageUrl(a.image)}
-                                            className="w-12 h-fit object-cover border-2 border-gray-300 rounded-md shadow-md"
+                                            className="w-12 h-fit object-cover"
                                         />
                                         }
                                         <div>
@@ -132,7 +138,7 @@ const PurchaseCard = () => {
                                     </div>
                                     <div>
                                         <button
-                                        className="px-2.5 py-2 bg-rose-400 text-white text-xs font-bold hover:cursor-pointer hover:bg-rose-600 rounded-md"
+                                        className="px-2.5 py-2 bg-rose-600 text-white text-xs font-bold hover:cursor-pointer hover:bg-rose-800 rounded-md hover:scale-110 hover:shadow-md transition-transform"
                                         onClick={() => doUndoPurchase(a.id!)}
                                         >
                                             Undo

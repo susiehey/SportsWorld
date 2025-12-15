@@ -10,18 +10,26 @@ Shows all registered athletes (purchased and not purchased). Search, edit and de
 export default function AthletesPage() {
     return (
         <>
-            <section className="p-4">
-                <p className="text-2xl font-bold">
+            <section className="p-4 text-center">
+                <p className="mb-2 text-2xl font-bold">
                     Athletes
                 </p>
-                <p className="mt-2 text-lg font-light">
+                <p className="mb-4 text-lg font-light">
                     Manage your registered MMA athletes. Search, edit, and delete athletes as needed.
                 </p>
             </section>
 
-            <AthleteSearch></AthleteSearch>
-            <AthleteEdit></AthleteEdit>
-            <AthleteList></AthleteList>
+            <section className="px-4 pb-8 flex justify-center">
+                <div className="w-full max-w-5xl">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                        <AthleteEdit></AthleteEdit>
+                        <AthleteSearch></AthleteSearch>
+                    </div>
+                    <div className="mt-4">
+                        <AthleteList></AthleteList>
+                    </div>
+                </div>
+            </section>
         </>
     );
 }

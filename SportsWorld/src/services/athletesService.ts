@@ -7,13 +7,8 @@ import type { IDefaultResponse } from '../interfaces/IDefaultResponse';
 
 const endpoint = "/api/athletes";
 
-interface IResponseList{
-    success: boolean,
-    data: IAthlete[] | null
-};
-
 // GET: Henter alle utøvere
-export const getAllAthletes = async () : Promise<IResponseList> => {
+const getAllAthletes = async () : Promise<IResponseList> => {
     try {
         const response = await api.get(endpoint);
         console.log("TRY");
@@ -41,11 +36,6 @@ const getAthleteByName = async (name: string) : Promise<IResponseList> => {
     }
 }
 
-interface IAthleteItemResponse{
-    success: boolean,
-    data: IAthlete | null
-}
-
 // GET: Henter utøver basert på ID
 const getAthleteById = async (id: number) : Promise<IAthleteItemResponse> => {
     try {
@@ -57,13 +47,8 @@ const getAthleteById = async (id: number) : Promise<IAthleteItemResponse> => {
     }
 }
 
-interface IDefaultResponse{
-    success: boolean
-}
-
-//Emma: Det er denne som sørger for at du kan redigere informasjonen om en athlete i AthleteEdit :)
-// PUT: Oppdaterer en utøver (trenger vi denne?)
-const putAthlete = async (editedAthlete: IAthlete) : Promise<IDefaultResponse> => {
+// PUT: Oppdaterer en utøver
+const updateAthlete = async (editedAthlete: IAthlete) : Promise<IDefaultResponse> => {
     try {
         await api.put(endpoint, editedAthlete);
         return { success: true }
@@ -74,7 +59,7 @@ const putAthlete = async (editedAthlete: IAthlete) : Promise<IDefaultResponse> =
 
 //Emma: Denne tror jeg ikke vi trenger, det å registrere en ny athlete blir allerede gjort i imageuploadService og AthleteAdd
 // POST: Opretter en ny utøver
-export const createAthletes = async (input: Omit<IAthlete, "id">): Promise<IResponseList<IAthlete>> => {
+const createAthletes = async (input: Omit<IAthlete, "id">): Promise<IResponseList<IAthlete>> => {
     try {
         const payload: Omit<IAthlete, "id"> = {
             name: input.name,
@@ -83,17 +68,6 @@ export const createAthletes = async (input: Omit<IAthlete, "id">): Promise<IResp
             price: input.price
         };
         const { data } = await api.post<IAthlete>(endpoint, payload);
-        return { success: true, data };
-    } catch {
-        return { success: false, data: null };
-    }
-}
-
-//Emma: Gjør denne det samme som putAthlete?
-// PUT: Oppdaterer en utøver
-export const updateAthlete = async (id: number, patch: Partial<IAthlete>): Promise<IResponseList<IAthlete>> => {
-    try {
-        const { data } = await api.put<IAthlete>(`/athletes/${id}`, patch);
         return { success: true, data };
     } catch {
         return { success: false, data: null };
@@ -117,8 +91,7 @@ const deleteAthlete = async (id: number) : Promise<IDefaultResponse> => {
 export default { 
     getAllAthletes,
     getAthleteByName, 
-    getAthleteById, 
-    putAthlete,
+    getAthleteById,
     createAthletes,
     updateAthlete,
     deleteAthlete

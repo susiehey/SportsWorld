@@ -19,12 +19,12 @@ public class AthletesController(SportsWorldContext _SportsWorldContext) : Contro
         }
         catch
         {
-            return StatusCode(500);
+            return StatusCode(500, "Search failed.");
         }
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Athlete>> Get(int id)
+    public async Task<ActionResult<Athlete>> GetById(int id)
     {
         try
         {
@@ -32,16 +32,16 @@ public class AthletesController(SportsWorldContext _SportsWorldContext) : Contro
 
             if(athlete != null)
             {
-                return Ok(athlete); //200
+                return Ok(athlete);
             }
             else
             {
-                return NotFound(); //404
+                return NotFound();
             }
         }
         catch
         {
-            return StatusCode(500);
+            return StatusCode(500, "Search failed.");
         }
     }
 
@@ -54,12 +54,11 @@ public class AthletesController(SportsWorldContext _SportsWorldContext) : Contro
             List<Athlete> athletes = await _SportsWorldContext.Athletes.Where(
                 a => a.Name.ToLower().Contains(name.ToLower())
             ).ToListAsync();
-
             return Ok(athletes);
         }
         catch
         {
-            return StatusCode(500);
+            return StatusCode(500, "Search failed.");
         }
     }
 
@@ -74,7 +73,7 @@ public class AthletesController(SportsWorldContext _SportsWorldContext) : Contro
         }
         catch
         {
-            return StatusCode(500);
+            return StatusCode(500, "Create failed.");
         }
     }
 
@@ -89,7 +88,7 @@ public class AthletesController(SportsWorldContext _SportsWorldContext) : Contro
         }
         catch
         {
-            return StatusCode(500);
+            return StatusCode(500, "Update failed.");
         }
     }
     
@@ -99,20 +98,15 @@ public class AthletesController(SportsWorldContext _SportsWorldContext) : Contro
         try
         {
             var athlete = await _SportsWorldContext.Athletes.FindAsync(id);
-
-            if(athlete == null)
-            {
-                return NotFound(); //404
-            }
+            if(athlete == null) return NotFound();
             
             _SportsWorldContext.Athletes.Remove(athlete);
             await _SportsWorldContext.SaveChangesAsync();
-
             return NoContent();
         }
         catch
         {
-            return StatusCode(500);
+            return StatusCode(500, "Delete failed.");
         }
     }
 

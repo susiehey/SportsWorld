@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { IAthlete } from "../interfaces/IAthlete";
 
-const endpoint = "http://localhost:5048/athlete";
+const endpoint = "http://localhost:5048/api/athlete";
 const endpointImageUpload = "http://localhost:5048/api/imageupload";
 
 const postAthlete = async (athlete: IAthlete, image: File) => {

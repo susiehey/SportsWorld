@@ -7,7 +7,7 @@ const AthleteItem = ({a}:{a: IAthlete}) => {
             <div className="flex items-center gap-4">
                 {a.image && (
                     <img 
-                        src={imageUrl(a.image)}
+                        src={`http://localhost:5048/images/${a.image}`}
                         alt={`Picture of ${a.name}`}
                         className="w-20 h-fit object-cover"
                     />

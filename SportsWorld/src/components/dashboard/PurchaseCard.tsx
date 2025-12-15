@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type { IAthlete } from "../../interfaces/IAthlete";
 import athleteService from "../../services/athletesService";
-import { imageUrl } from "../../services/imageUrl";
 import financeService from "../../services/financeService";
 
 const PurchaseCard = () => {
@@ -84,7 +83,7 @@ const PurchaseCard = () => {
                                 <div className="flex items-center gap-4">
                                     {a.image && (
                                         <img 
-                                            src={imageUrl(a.image)}
+                                            src={`http://localhost:5048/images/${a.image}`}
                                             className="w-12 h-fit object-cover"
                                         />
                                     )}
@@ -123,7 +122,7 @@ const PurchaseCard = () => {
                                     <div className="flex items-center gap-4">
                                         {a.image &&
                                         <img 
-                                            src={imageUrl(a.image)}
+                                            src={`http://localhost:5048/images/${a.image}`}
                                             className="w-12 h-fit object-cover"
                                         />
                                         }

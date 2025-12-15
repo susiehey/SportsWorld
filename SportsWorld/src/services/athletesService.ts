@@ -1,4 +1,3 @@
-import api from './api';
 import axios from "axios";
 import type { IAthlete } from '../interfaces/IAthlete';
 import type { IResponseList } from '../interfaces/IResponseList';

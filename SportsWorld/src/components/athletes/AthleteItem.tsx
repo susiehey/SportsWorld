@@ -1,5 +1,4 @@
 import type { IAthlete } from "../../interfaces/IAthlete";
-import { imageUrl } from "../../services/imageUrl";
 
 const AthleteItem = ({a}:{a: IAthlete}) => {
     return (

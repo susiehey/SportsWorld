@@ -4,17 +4,17 @@ import ImageUploadService from "../../services/ImageUploadService";
 
 const AthleteAdd = () => {
     const [image, setImage] = useState<File | null>(null);
-    const [imageName, setImageName] = useState<string>("");
-    const [status, setStatus] = useState("");
     const nameInput = useRef<HTMLInputElement | null>(null);
     const genderInput = useRef<HTMLSelectElement | null>(null);
     const priceInput = useRef<HTMLInputElement | null>(null);
 
+    const [status, setStatus] = useState("");
+
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const {files} = e.target;
-        if (files != null) {
+
+        if(files != null){
             setImage(files[0]);
-            setImageName(files[0].name);
         }
     }
 

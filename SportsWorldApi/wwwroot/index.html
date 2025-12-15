@@ -9,16 +9,28 @@
 </head>
 <body>
     <h1>SportsWorld API Documentation</h1>
-    <p>This is the API documentation for the SportsWorld application.</p>
+    <p>This is the API documentation for the SportsWorld web-application.</p>
 
     <!-- Athletes -->
     <div class="section">
-        <h2>Athletes</h2>
+        <h2>MMA Athletes</h2>
+        <p>Get all athletes: <code>GET /api/athletes</code></p>
+        <p>Get athlete by id: <code>GET /api/athletes/{id}</code></p>
+        <p>Register new athlete: <code>POST /api/athletes</code></p>
+        <p>Update athlete: <code>PUT /api/athletes/{id}</code></p>
+        <p>Delete athlete: <code>DELETE /api/athletes/{id}</code></p>
+        <p>Upload athlete image: <code>POST /api/imageupload</code></p>
+        <p>Images are stored in <code>/images/firstname_lastname.png</code>
+        (Example: <code>/images/valentina_shevchenko.png</code>)</p>
+
     </div>
 
     <!-- Finance -->
     <div class="section">
         <h2>Finance</h2>
+        <p>Get financial data: <code>GET /api/finance</code></p>
+        <p>Increase money: <code>POST /api/finance/increaseMoney</code></p>
+        
     </div>
 
 </body>

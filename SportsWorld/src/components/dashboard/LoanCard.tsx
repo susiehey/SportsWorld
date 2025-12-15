@@ -53,7 +53,7 @@ const LoanCard = () => {
                         value={amount}
                         placeholder="Type in loan amount..."
                         onChange={(e) => setAmount(Number(e.target.value))}
-                        className="w-full h-8 px-3 py-2 bg-white rounded-md shadow-md placeholder:text-sm placeholder:text-gray-500"/>
+                        className="w-full h-8 px-3 py-2 bg-white rounded-md shadow-md placeholder:text-xs placeholder:text-gray-500 placeholder:italic"/>
                 </div>
                 <div className="flex gap-2 justify-center">
                     {/* Ta lån knapp */}
@@ -67,7 +67,7 @@ const LoanCard = () => {
                     <button
                         type="button"
                         onClick={submitPayLoan}
-                        className="px-2.5 py-2 bg-blue-600 text-white text-xs font-bold hover:cursor-pointer rounded-md hover:bg-blue-800 hover:scale-105 hover:shadow-mdtransition-transform">
+                        className="px-2.5 py-2 bg-blue-600 text-white text-xs font-bold hover:cursor-pointer rounded-md hover:bg-blue-800 hover:scale-110 hover:shadow-md transition-transform">
                             Pay loan in full
                     </button>
                 </div>

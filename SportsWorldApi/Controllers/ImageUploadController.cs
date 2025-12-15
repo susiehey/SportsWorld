@@ -11,7 +11,11 @@ public class ImageUploadController(IWebHostEnvironment webHostEnvironment) : Con
     {
         try
         {
-            //Husk!: Sjekk om filen er null med if()
+            if(file == null || file.Length == 0)
+            {
+                return NoContent();
+            }
+
             string webRootPath = webHostEnvironment.WebRootPath;
             string absolutePath = Path.Combine(webRootPath, "images", file.FileName); 
 

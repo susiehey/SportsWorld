@@ -22,26 +22,38 @@
         <p>Upload athlete image: <code>POST /api/imageupload</code></p>
         <p>Images are stored in <code>/images/firstname_lastname.png</code>
         (Example: <code>/images/valentina_shevchenko.png</code>)</p>
-
+        <br>
+        <b>Athlete data:</b>
+        <ul>
+            <li>Id: int</li>
+            <li>Name: string</li>
+            <li>Gender: string</li>
+            <li>Price: int</li>
+            <li>Image: string</li>
+            <li>PurchaseStatus: bool</li>
+        </ul>
     </div>
-
-    <h2>One Athlete</h2>
-    <ul>
-        <li>Id: int</li>
-        <li>Name: string</li>
-        <li>Gender: string</li>
-        <li>Price: int</li>
-        <li>Image: string</li>
-        <li>PurchaseStatus: bool</li>
-    </ul>
 
     <!-- Finance -->
     <div class="section">
         <h2>Finance</h2>
         <p>Get financial data: <code>GET /api/finance</code></p>
         <p>Increase money: <code>POST /api/finance/increaseMoney</code></p>
-        
+        <p>Pay loan: <code>POST /api/finance/payLoan</code><p>
+        <p>Purchase athlete: <code>POST /api/finance/purchase</code>p>
+        <p>Refund purchase: <code>POST /api/finance/refund</code>p>
+        <br>
+        <b>Finance data:</b>
+        <ul>
+            <li>Id: Int</li>
+            <li>MoneyLeft: Int</li>
+            <li>NumberOfPurchases: Int</li>
+            <li>MoneySpent: Int</li>
+            <li>LoanBalance: Int</li>
+        </ul>
     </div>
+    
+    
 
 </body>
 </html>

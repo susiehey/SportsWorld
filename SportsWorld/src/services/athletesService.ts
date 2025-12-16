@@ -58,12 +58,12 @@ const updateAthlete = async (editedAthlete: IAthlete) : Promise<IDefaultResponse
 
 // DELETE: Sletter en utøver
 const deleteAthlete = async (id: number) : Promise<IDefaultResponse> => {
-    try{
+    try {
         await axios.delete(`${endpoint}/${id}`)
         return {
             success: true
         }
-    }catch{
+    } catch {
         return {
             success: false
         }

@@ -19,7 +19,6 @@ const postAthlete = async (athlete: IAthlete, image: File) => {
     });
 
     formData.delete("file");
-    //needs try catch
 
 }
 

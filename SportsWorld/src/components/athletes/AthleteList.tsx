@@ -6,6 +6,7 @@ import AthleteItem from "./AthleteItem";
 const AthleteList = () => {
     const [athletes, setAthletes] = useState<IAthlete[]>([]);
 
+
     useEffect( () => {
         getAndSetAthletes();
     }, [])
@@ -15,8 +16,6 @@ const AthleteList = () => {
         
         if ( response.success == true && response.data != null && Array.isArray(response.data) ){   
             setAthletes( response.data );
-        } else {
-            // TODO: Feilmelding til bruker
         }
     }
 
@@ -25,7 +24,7 @@ const AthleteList = () => {
             return (
                 <AthleteItem 
                     key={"athlete" + index}
-                    a={athlete}
+                    athlete={athlete}
                 />
             )
         });

@@ -8,8 +8,7 @@ const AthleteSearch = () => {
     const [athletes, setAthletes] = useState<IAthlete[]>([]);
     const [status, setStatus] = useState("");
 
-
-    const search = async () => {
+    const searchAthlete = async () => {
         setStatus("");
         setAthletes([]);
 
@@ -23,13 +22,13 @@ const AthleteSearch = () => {
                     setAthletes(response.data);
                 }
             } else {
-                setStatus("Search failed. Please try again.");
+                setStatus("Search failed. Please type in a name and try again.");
             }
         } catch (error) {
             // Viser feilmelding i konsoll
             console.error(error);
             // Viser feilmelding til brukeren
-            setStatus("Search failed. Please try again.");
+            setStatus("Search failed.");
         }
     };
     
@@ -42,7 +41,7 @@ const AthleteSearch = () => {
             return (
                 <AthleteItem 
                     key={"athleteSearch" + index}
-                    a={athlete}
+                    athlete={athlete}
                 />
             )
         });
@@ -62,7 +61,9 @@ const AthleteSearch = () => {
                     type="text"
                     placeholder="Type in name of athlete..."
                     className="w-full h-8 px-3 py-2 bg-white rounded-md shadow-md placeholder:text-xs placeholder:italic placeholder:text-gray-500"/>
-                    <button onClick={search} className="px-2.5 py-2 w-1/4 bg-blue-600 text-white text-xs font-bold hover:cursor-pointer rounded-md hover:bg-blue-800 hover:scale-110 hover:shadow-md transition-transform">
+                    <button 
+                    onClick={searchAthlete} 
+                    className="px-2.5 py-2 w-1/4 bg-blue-600 text-white text-xs font-bold hover:cursor-pointer rounded-md hover:bg-blue-800 hover:scale-110 hover:shadow-md transition-transform">
                         Search
                     </button>
                 </div>

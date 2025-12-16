@@ -80,35 +80,40 @@ const AthleteEdit = () => {
     const deleteAthlete = async () => {
         setStatus("");
 
+        if (!idInput.current || idInput.current.value.trim() == "") {
+            setStatus("Please enter ID first.");
+            return;
+        }
+
         const id = Number(idInput.current?.value);
-        if (isNaN(id)){
+        if (isNaN(id)) {
             setStatus("Invalid ID.");
             return;
         };
 
-        // Bekrefter sletting av utøver
+        // Vi vil unngå at brukeren sletter feil utøver med et uhell, så dette bekrefter sletting av utøver
         if (!window.confirm("Are you sure you want to delete this athlete?")) {
             return;
         }
 
         try {
             const response = await athletesService.deleteAthlete(id);
-            if (response?.success === true){
+            if (response?.success === true) {
                 setStatus("Athlete deleted successfully.");
 
-                // Tømmer felter etter sletting
+                // Tømmer feltene etter sletting
                 if (nameInput.current) nameInput.current.value = "";
                 if (genderInput.current) genderInput.current.value = "";
                 if (priceInput.current) priceInput.current.value = "";
                 setImage(undefined);
             } else {
-                setStatus("Failed to delete athlete. Please try again.");
+                setStatus("Could not delete athlete. Check if ID is correct.");
             }
         } catch (error) {
             // Viser feilmelding i konsoll
             console.error(error);
             // Viser feilmelding til brukeren
-            setStatus("Failed to delete athlete.");
+            setStatus("Could not delete athlete. Check if ID is correct.");
         };
     }
 
